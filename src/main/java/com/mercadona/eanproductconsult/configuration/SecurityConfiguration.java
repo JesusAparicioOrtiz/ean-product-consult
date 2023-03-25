@@ -15,14 +15,14 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
                     AntPathRequestMatcher.antMatcher("/api/v1/product/**")).permitAll()
-                    .anyRequest().permitAll()
-                    
+                    .anyRequest().permitAll()   
             )
             .headers(headers -> headers
                 .frameOptions().sameOrigin()
             )
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
+                .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
+                AntPathRequestMatcher.antMatcher("/api/v1/product/**"))
             );
 
         return http.build();

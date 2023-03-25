@@ -2,6 +2,8 @@ package com.mercadona.eanproductconsult.model;
 
 import java.math.BigDecimal;
 
+import com.mercadona.eanproductconsult.exception.InvalidEanException;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -50,7 +52,7 @@ public class Product {
             case "0":
                 return "Hives";
             default:
-                return "Unknown";
+                throw new InvalidEanException("El código EAN no cumple con el formato esperado");
         }
     }
 
