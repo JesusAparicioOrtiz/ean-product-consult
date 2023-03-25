@@ -7,5 +7,4 @@ public class Error {
     public Error(String message) {
         this.message = message;
     }
-    
 }

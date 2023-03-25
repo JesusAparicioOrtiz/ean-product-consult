@@ -9,5 +9,4 @@ public class EanProductConsultApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EanProductConsultApplication.class, args);
 	}
-
 }

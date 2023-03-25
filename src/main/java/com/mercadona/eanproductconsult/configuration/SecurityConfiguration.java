@@ -14,8 +14,9 @@ public class SecurityConfiguration {
         http
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
+                    AntPathRequestMatcher.antMatcher("/actuator/**"),
                     AntPathRequestMatcher.antMatcher("/api/v1/product/**")).permitAll()
-                    .anyRequest().permitAll()   
+                    .anyRequest().denyAll()
             )
             .headers(headers -> headers
                 .frameOptions().sameOrigin()

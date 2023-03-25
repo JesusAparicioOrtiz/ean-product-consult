@@ -65,5 +65,4 @@ public class Product {
                 return "Unknown provider";
         }
     }
-
 }

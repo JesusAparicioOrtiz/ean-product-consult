@@ -6,5 +6,4 @@ import com.mercadona.eanproductconsult.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
 
-
 }

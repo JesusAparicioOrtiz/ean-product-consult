@@ -25,6 +25,7 @@ public class RestResponseEntityExceptionHandler extends RuntimeException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected Error handleValidationExceptions(MethodArgumentNotValidException e) {
+        
         List<String> errors = e.getBindingResult()
             .getFieldErrors()
             .stream()
