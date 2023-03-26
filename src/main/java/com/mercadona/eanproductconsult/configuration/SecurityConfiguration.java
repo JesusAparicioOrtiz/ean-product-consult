@@ -15,7 +15,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
                     AntPathRequestMatcher.antMatcher("/actuator/**"),
-                    AntPathRequestMatcher.antMatcher("/api/v1/product/**")).permitAll()
+                    AntPathRequestMatcher.antMatcher("/api/v1/**")).permitAll()
                     .anyRequest().denyAll()
             )
             .headers(headers -> headers
@@ -23,7 +23,7 @@ public class SecurityConfiguration {
             )
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"),
-                AntPathRequestMatcher.antMatcher("/api/v1/product/**"))
+                AntPathRequestMatcher.antMatcher("/api/v1/**"))
             );
 
         return http.build();

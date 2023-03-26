@@ -27,11 +27,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Cacheable( value = "products", key = "#root.methodName")
+    @Cacheable( value = "products")
     @GetMapping(path = "/{ean}")
     public ResponseEntity<Object> getProduct(@PathVariable String ean) {
-        
-        Optional<Product> product = productService.getProduct(ean);
+        Optional<Product> product = productService.getProduct(ean, true);
 
         if (!product.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -44,7 +43,7 @@ public class ProductController {
     @PostMapping(path = "/", consumes = "application/json")
     public ResponseEntity<Object> createProduct(@Valid @RequestBody Product product) {
 
-        Optional<Product> existingProduct = productService.getProduct(product.getEan());
+        Optional<Product> existingProduct = productService.getProduct(product.getEan(), false);
 
         if (existingProduct.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -52,13 +51,13 @@ public class ProductController {
         }
 
         productService.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Product created successfully"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse("Product with EAN " + product.getEan() + " created successfully"));
     }
 
     @PutMapping(path = "/", consumes = "application/json")
     public ResponseEntity<Object> updateProduct(@Valid @RequestBody Product product) {
 
-        Optional<Product> existingProduct = productService.getProduct(product.getEan());
+        Optional<Product> existingProduct = productService.getProduct(product.getEan(), false);
 
         if (!existingProduct.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -66,13 +65,13 @@ public class ProductController {
         }
 
         productService.save(product);
-        return ResponseEntity.ok(new MessageResponse("Product updated successfully"));
+        return ResponseEntity.ok(new MessageResponse("Product with EAN " + product.getEan() + " updated successfully"));
     }
 
     @DeleteMapping(path = "/{ean}")
     public ResponseEntity<Object> deleteProduct(@PathVariable String ean) {
 
-        Optional<Product> product = productService.getProduct(ean);
+        Optional<Product> product = productService.getProduct(ean, false);
 
         if (!product.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -80,6 +79,6 @@ public class ProductController {
         }
 
         productService.delete(ean);
-        return ResponseEntity.ok(new MessageResponse("Product deleted successfully"));
+        return ResponseEntity.ok(new MessageResponse("Product with EAN " + ean + " deleted successfully"));
     }
 }

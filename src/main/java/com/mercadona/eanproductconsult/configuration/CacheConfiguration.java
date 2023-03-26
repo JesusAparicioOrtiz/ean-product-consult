@@ -17,7 +17,7 @@ public class CacheConfiguration {
     @Bean
     public CacheManager cacheManager() {
 
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("products");
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager("products", "providers", "destinations");
         cacheManager.setCaffeine(caffeineCacheBuilder());
         return cacheManager;
     }
@@ -25,7 +25,7 @@ public class CacheConfiguration {
     Caffeine<Object, Object> caffeineCacheBuilder() {
 
         return Caffeine.newBuilder()
-                .expireAfterAccess(5, TimeUnit.MINUTES)
+                .expireAfterAccess(1, TimeUnit.MINUTES)
                 .maximumSize(100);
     }
 }

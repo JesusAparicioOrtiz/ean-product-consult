@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RestResponseEntityExceptionHandler extends RuntimeException {
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidIdException.class)
+    protected Error handleInvalidIdException(InvalidIdException e) {
+        return new Error(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(InvalidEanException.class)
     protected Error handleInvalidEanException(InvalidEanException e) {
         return new Error(e.getMessage());
